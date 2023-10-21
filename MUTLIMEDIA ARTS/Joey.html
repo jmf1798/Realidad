@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Storyboard</title>
+    <style>
+        /* Reset some default styles */
+        body, h1, p, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Apply a background color to the whole page */
+        body {
+            background-color: skyblue;
+            font-family: 'Poppins', Arial, sans-serif; /* Poppins font added */
+        }
+
+        /* Style the header */
+        header {
+            background-color: #1877f2; /* Facebook blue */
+            color: #fff;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between; /* Align items horizontally */
+            align-items: center; /* Center items vertically */
+        }
+
+        /* Style the menu */
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu-item {
+            margin-right: 20px;
+        }
+
+        .menu-item:last-child {
+            margin-right: 0;
+        }
+
+        .menu-link {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Style the main content */
+        .main {
+            max-width: 600px; /* Adjust the maximum width as needed */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            display: flex; /* Display center and left content side by side */
+            flex-direction: row; /* Stack child elements horizontally */
+            align-items: flex-start; /* Align child elements at the top */
+        }
+
+        /* Right column */
+        .right-column {
+            flex: 1; /* Occupy 50% of the space */
+            padding-left: 20px; /* Add spacing between columns */
+        }
+
+        /* Card styles */
+        .card {
+            background-color: #fff;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            padding: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px; /* Adjust the height as needed */
+            height: 800px; /* Adjust the height as needed */
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            font-size: 16px;
+        }
+
+        /* Left card styles */
+        .left-card {
+            background-color: skyblue; /* Background color set to blue */
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            padding: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+            height: 200px; /* Adjust the height as needed */
+            margin-left: 20px; /* Add spacing between cards */
+        }
+        
+        /* Style the small cards container */
+        .small-cards-container {
+            display: flex;
+            flex-direction: column; /* Stack small cards vertically */
+            align-items: flex-start; /* Align small cards at the top */
+            margin-top: -40px; /* Move the small cards to the top */
+            margin-bottom: 20px; /* Add margin at the bottom to separate them from the main content */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="font-family: 'Poppins', Arial, sans-serif;">Group 4</h1>
+        <ul class="menu">
+            <li class="menu-item"><a href="#" class="menu-link">Home</a></li>
+            <li class="menu-item"><a href="#" class="menu-link">Blogs</a></li>
+            <li class="menu-item"><a href="#" class="menu-link">About us</a></li>
+        </ul>
+    </header>
+
+    <div class="main">
+        <!-- Right Column -->
+        <div class="right-column">
+            <!-- Video Section -->
+            <video width="100%" controls>
+               <source src="Joey.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- Card Template -->
+            <div class="card">
+                <h2 class="card-title">Card Title</h2>
+                <p class="card-content">This is a sample card content. You can customize it as needed for your homepage.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Small Cards Container -->
+    <div class="small-cards-container">
+        <!-- Small Card 1 -->
+        <div class="left-card">
+            <h2 class="card-title">Left Card 1</h2>
+            <p class="card-content">This is a small card on the left.</p>
+        </div>
+
+        <!-- Small Card 2 -->
+        <div class="left-card">
+            <h2 class="card-title">Left Card 2</h2>
+            <p class="card-content">This is another small card on the left.</p>
+        </div>
+    </div>
+</body>
+</html>

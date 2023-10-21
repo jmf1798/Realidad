@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Video Storyboard</title>
+    <!-- Add Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Add CSS for the parallax header */
+        .parallax-header {
+            background-image: url('parallax-background.jpg');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        /* Style for the header content */
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Style for the menu and search bar */
+        .menu-and-search {
+            background-color: #FFFFFF;
+            overflow: hidden;
+            display: flex;
+            align-items: center; /* Align the menu to the left */
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu a {
+            display: inline-block; /* Display menu items horizontally */
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+
+        /* Style for the search bar */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-left: 10px; /* Add some space between the menu items and the search box */
+        }
+
+        .search-bar input[type="text"] {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .search-bar i {
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+     
+        /* Style for the login button */
+		.login-button {
+			background-color: #007bff; /* Blue background color */
+			color: #fff; /* White text color */
+			border: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+			text-decoration: none; /* Remove underlines for better appearance */
+			margin-right: 10px; /* Add some space between the login button and other menu items */
+			margin-left: 10px; /* Add margin to the left side to move the login button to the left */
+}
+
+        }
+
+        /* Style for the login button hover effect */
+        .login-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        /* Add your existing styles below */
+       body {
+            font-family: 'Poppins', Comforta, Century Gothic; /* Use the Poppins font */
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .left-column {
+            flex: 1;
+            margin-right: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .right-column {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+      .video-container {
+			position: relative;
+			padding-bottom: 56.25%;
+			padding-top: 30px;
+			height: 0;
+			overflow: hidden;
+		}
+		 video {
+            width: 100%;
+			}
+
+        .storyboard {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .storyboard-item {
+            flex: 1;
+            margin: 0 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+
+        .storyboard-item:hover {
+            background-color: #e0e0e0;
+        }
+
+        .video-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .video-buttons button {
+            background-color: #1877f2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .video-buttons button:hover {
+            background-color: #0e5aee;
+        }
+
+        .video-buttons .like-button {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .video-buttons .share-button {
+            flex: 1;
+        }
+
+        /* Style for the cover images and play buttons */
+        .scene-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .scene-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            padding: 10px 20px;
+            background-color: #1877f2;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Add a comment style */
+        .comments {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .comment {
+            margin-bottom: 10px;
+        }
+
+        /* Style for the comment form */
+        .comment-form {
+            margin-top: 20px;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        .comment-form button {
+            margin-top: 10px;
+            background-color: #1877f2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
+            background-color: #0e5aee;
+        }
+		/* Style for the subscribe button and subscriber count in the menu */
+		/* Style for the subscribe button and subscriber count in the menu */
+		.subscribe-button {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    margin-left: auto; /* Push the subscribe button to the right */
+}
+
+	.subscribe-button button {
+    background-color: skyblue; /* Sky blue background color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underlines for better appearance */
+    margin-right: 10px; /* Add some space to the right of the button */
+}
+
+	.subscribe-button button:hover {
+    background-color: #00B7F9; /* Darker blue on hover */
+}
+
+	.subscribe-button .subscriber-count {
+    font-size: 14px;
+    color: #777;
+}
+
+	.subscribe-button .subscriber-count {
+    font-size: 14px;
+    color: #777;
+}
+	/* Style for the subscribe button and subscriber count in the menu */
+	.subscribe-button {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    margin-left: auto; /* Push the subscribe button to the right */
+}
+
+	.subscribe-button button {
+    background-color: #65C0e5; /* Red-Orange background color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underlines for better appearance */
+    margin-right: 10px; /* Add some space to the right of the button */
+}
+
+	.subscribe-button button:hover {
+    background-color: lightblue; /* Darker red-orange on hover */
+}
+
+	.subscribe-button .subscriber-count {
+    font-size: 14px;
+    color: #00B7F9;
+}
+	nav ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Style for navigation list items */
+        nav ul li {
+            display: inline; /* Display list items horizontally */
+            margin-right: 20px; /* Add some space between list items */
+        }
+		
+ .question-section {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    display: none;
+    box-sizing: border-box;
+    max-width: 400px; /* Added to limit the width */
+    margin: 0 auto; /* Center the overlay horizontally */
+}
+
+.question-section p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.question-section textarea {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+.question-section button {
+    background-color: #1877f2;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.question-section button:hover {
+    background-color: #0e5aee;
+}
+
+
+    </style>
+</head>
+<body>
+<!-- Parallax header -->
+<div class="parallax-header">
+    <div class="header-content">
+        <h1>Societal Value (G-4)</h1>
+    </div>
+</div>
+
+<!-- Menu and Search Bar -->
+<!-- Menu and Search Bar -->
+<!-- Menu and Search Bar -->
+<!-- Menu and Search Bar -->
+<div class="menu-and-search">
+    <a class="login-button" href="file:///C:/Users/Administrator/OneDrive/Desktop/Login%20Page.html">Login</a>
+    <div class="menu">
+        <a href="#home"><i class="fas fa-home"></i> Home</a>
+        <a href="#blogs"><i class="fas fa-book"></i> Blogs</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About Us</a>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search">
+        <i class="fas fa-search" style="margin-left: 5px;"></i>
+    </div>
+</div>
+
+
+
+
+<div class="container">
+    <div class="left-column">
+        <!-- Add your right content here -->
+        <div class="video-container">
+	<video id="video-player" class="video-frame" controls>
+            <source src="Animated.mp4" type="video/mp4">
+        </video>
+        </div>
+		<div class="container">
+    <!-- ... Other content ... -->
+
+    <!-- Pop-up question container initially hidden -->
+            <div class="question-section" id="questionSection">
+                <p>Choose any of the scene to predict what will happen next?</p>
+            </div>
+        </div>
+
+		
+		<div class="storyboard">
+            <!-- Scene 1 -->
+          <div class="storyboard-item" id="scene1" onclick="playScene(1)">
+    <!-- Video container for Scene 1 (hidden initially) -->
+    <div class="video-container" style="display: none;">
+        <video class="scene-video" controls>
+            <source src="ABC.mp4" type="video/mp4">
+        </video>
+    </div>
+    <p>Scene 1</p>
+</div>
+
+
+            <!-- Scene 2 -->
+            <div class="storyboard-item" id="scene2" onclick="playScene(2)">
+                <div class="scene-cover">
+                    <img src="scene2-cover.jpg" alt="Scene 2 Cover">
+                    <button class="scene-play-button">Play Scene</button>
+                </div>
+                <p>Scene 2</p>
+            </div>
+			 </div>
+        <div class="video-buttons">
+            <button class="like-button" onclick="handleLikeClick()"><i class="fas fa-thumbs-up"></i> Like (0)</button>
+            <button class="share-button" onclick="handleShareClick()"><i class="fas fa-share"></i> Share (0)</button>
+        </div>
+            <!-- Add more scenes as needed -->
+       
+        
+        <!-- Add your right content here -->
+      
+		
+        <!-- Add a comment section -->
+        <div class="comments" id="comments">
+            <h2>Share your thoughts</h2>
+            <div class="comment">
+                <strong>Anonymous 2023:</strong> Love this video!
+            </div>
+            <div class="comment">
+                <strong>Miss125:</strong> Great video!
+            </div>
+        </div>
+        <!-- Add a comment form -->
+        <div class="comment-form">
+            <h2>Add a Comment</h2>
+            <textarea id="commentInput" placeholder="Write your comment here..." rows="4"></textarea>
+            <button onclick="addComment()">Submit Comment</button>
+        </div>
+    </div>
+
+    <div class="right-column">
+	<div class="left-column">
+        <!-- Add your left content here -->
+     <article>
+    <h2>The Societal Value of Education, Literacy, and Mental Health Awareness</h2>
+    <img src="education-mental-health.jpg" alt="Education and Mental Health">
+    <p>
+        Education and literacy, along with mental health awareness, play pivotal roles in shaping not only individuals but also entire societies. These interconnected aspects contribute to the overall well-being and progress of communities. Let's delve into their significance.
+    </p>
+    <h3>Education and Literacy</h3>
+    <p>
+        Education is the cornerstone of personal development and societal advancement. It equips individuals with knowledge, skills, and critical thinking abilities necessary to lead fulfilling lives and contribute positively to society.
+    </p>
+    <p>
+        Literacy, the ability to read and write, is an integral part of education. It empowers individuals to access information, participate in economic activities, and engage in civic life. A literate population is better equipped to address societal challenges and make informed decisions.
+    </p>
+    <h3>Mental Health Awareness</h3>
+    <p>
+        Mental health awareness is an essential component of societal well-being. It involves understanding, destigmatizing, and supporting individuals facing mental health challenges. Acknowledging mental health is as crucial as physical health.
+    </p>
+    <p>
+        Promoting mental health awareness reduces the stigma surrounding mental illnesses, encouraging those affected to seek help and support. It also fosters empathy and compassion in society, creating a more inclusive and understanding community.
+    </p>
+    <h3>The Interconnection</h3>
+    <p>
+        Education and literacy contribute to mental health awareness in several ways. Educated individuals are more likely to recognize the importance of mental health and seek help when needed. Literacy enables access to mental health resources and information.
+    </p>
+    <p>
+        Conversely, mental health challenges can hinder one's educational journey. Addressing mental health issues early can prevent educational setbacks and promote lifelong learning.
+    </p>
+    <h3>Conclusion</h3>
+    <p>
+        In summary, education, literacy, and mental health awareness are intertwined aspects of societal value. They empower individuals, foster personal and collective growth, and create a more inclusive and compassionate society. Prioritizing these areas benefits not only individuals but also the entire community, leading to a brighter and more prosperous future.
+    </p>
+</article>
+
+			
+		
+</div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+ function playScene(sceneNumber) {
+        const mainVideo = document.getElementById('video-player');
+    
+        // Hide all scene videos initially
+        const sceneVideos = document.querySelectorAll('.scene-video');
+        sceneVideos.forEach(video => {
+            video.style.display = 'none';
+        });
+    
+        switch (sceneNumber) {
+            case 1:
+                // Change the video source to Scene 1
+                mainVideo.src = 'ABC.mp4';
+                break;
+            case 2:
+                // Change the video source to Scene 2
+                mainVideo.src = 'scene2-video.mp4';
+                break;
+            // Add cases for other scenes if needed
+        }
+    
+        // Hide the main video and show the scene video
+        mainVideo.style.display = 'none';
+        const sceneVideo = document.querySelector(`.storyboard-item:nth-child(${sceneNumber}) .scene-video`);
+        sceneVideo.style.display = 'block';
+    
+        // Start playing the scene video
+        sceneVideo.play();
+    }
+
+    const video = document.getElementById('video-player');
+    const scene1 = document.getElementById('scene1');
+    const scene2 = document.getElementById('scene2');
+
+    // Function to hide Scene 1 and Scene 2
+    function hideScenes() {
+        scene1.style.display = 'none';
+        scene2.style.display = 'none';
+    }
+
+    // Function to show Scene 1 and Scene 2
+    function showScenes() {
+        scene1.style.display = 'block';
+        scene2.style.display = 'block';
+    }
+
+    // Add an event listener for when the video starts
+    video.addEventListener('play', () => {
+        hideScenes();
+    });
+
+    // Add an event listener for when the video ends
+    video.addEventListener('ended', () => {
+        showScenes();
+    });
+function playScene(sceneNumber) {
+    const mainVideo = document.getElementById('video-player');
+
+    // Get the scene video container for the specified scene
+    const sceneVideoContainer = document.querySelector(`.storyboard-item:nth-child(${sceneNumber}) .video-container`);
+
+    // Hide the main video
+    mainVideo.style.display = 'none';
+
+    // Show the scene video container
+    sceneVideoContainer.style.display = 'block';
+
+    // Play the scene video
+    const sceneVideo = sceneVideoContainer.querySelector('.scene-video');
+    sceneVideo.play();
+}
+
+		
+		
+
+
+    // Real-time like and share counters (placeholder numbers)
+    let likeCount = 0;
+    let shareCount = 0;
+
+    // Function to update like and share counts
+    function updateCounts() {
+        document.querySelector('.like-button').innerHTML = `<i class="fas fa-thumbs-up"></i> Like (${likeCount})`;
+        document.querySelector('.share-button').innerHTML = `<i class="fas fa-share"></i> Share (${shareCount})`;
+    }
+	// Add an event listener for when the video is played
+video.addEventListener('play', () => {
+    hideScenes();
+
+    const video = document.getElementById('video-player');
+
+video.addEventListener('ended', () => {
+    const questionSection = document.getElementById('questionSection');
+    questionSection.style.display = 'block';
+});
+
+});
+
+// Function to submit the answer to the pop-up question
+function submitAnswer() {
+    const answerInput = document.getElementById('answerInput');
+    const answer = answerInput.value.trim();
+
+    if (answer !== '') {
+        // You can process the user's answer here (e.g., send it to your backend).
+        // For now, let's log the answer to the console.
+        console.log('User Answer:', answer);
+
+        // Hide the pop-up question after submitting the answer
+        const questionSection = document.getElementById('questionSection');
+        questionSection.style.display = 'none';
+    }
+}
+
+
+    // Function to handle a like click
+    function handleLikeClick() {
+        likeCount++;
+        updateCounts();
+    }
+
+    // Function to handle a share click
+    function handleShareClick() {
+        shareCount++;
+        updateCounts();
+    }
+
+    // Function to add a comment
+    function addComment() {
+        const commentInput = document.getElementById('commentInput');
+        const comments = document.getElementById('comments');
+        const commentText = commentInput.value.trim();
+
+        if (commentText !== '') {
+            const commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment');
+            commentDiv.innerHTML = `<strong>User:</strong> ${commentText}`;
+            comments.appendChild(commentDiv);
+            commentInput.value = '';
+        }
+    }
+
+   
+
+    // Initial update of counts
+    updateCounts();
+	// Define a variable to keep track of the subscriber count (initially set to 0)
+let subscriberCount = 0;
+
+// Function to simulate a subscription
+function subscribe() {
+    // In a real scenario, you would send a request to your backend to subscribe the user.
+
+    // Simulate an increase in the subscriber count
+    subscriberCount++;
+
+    // Update the subscriber count on the page
+    updateSubscriberCount();
+}
+
+// Function to update the subscriber count on the page
+function updateSubscriberCount() {
+    const subscriberCountElement = document.getElementById('subscriberCount');
+
+    // Update the subscriber count text
+    subscriberCountElement.textContent = `${subscriberCount} Subscriber${subscriberCount !== 1 ? 's' : ''}`;
+}
+
+// Initial update of the subscriber count
+updateSubscriberCount();
+
+
+</script>
+</body>
+</html>

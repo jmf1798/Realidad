@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Set the background color to sky blue */
+        body {
+            background-color: skyblue;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif; /* Use the Poppins font */
+        }
+
+        /* Center the modal and content vertically and horizontally */
+        .modal-bg {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        /* Style for the modal content */
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center; /* Center text horizontally */
+        }
+
+        /* Style for the close button */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        /* Style for the login button */
+        #openModalButton {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Style for the login button hover effect */
+        #openModalButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <!-- Add the link to the Poppins font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login button to open the modal -->
+    <button id="openModalButton">Login</button>
+
+    <!-- Modal background and content -->
+    <div id="loginModal" class="modal-bg">
+        <div class="modal-content">
+            <!-- Close button -->
+            <span class="close-button" id="closeModalButton">&times;</span>
+
+            <!-- Login form -->
+            <h1>Welcome</h1>
+            <form id="loginForm">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div>
+                    <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+                </div>
+            </form>
+            <p id="loginMessage" style="color: red;"></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to open the login modal
+        document.getElementById('openModalButton').addEventListener('click', function () {
+            document.getElementById('loginModal').style.display = 'block';
+        });
+
+        // Function to close the login modal
+        document.getElementById('closeModalButton').addEventListener('click', function () {
+            document.getElementById('loginModal').style.display = 'none';
+        });
+
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Skip credential validation and immediately redirect to the main page
+            // Replace 'your-main-page.html' with the actual URL of your main page
+            window.location.href = 'Societal Value.html';
+        });
+    </script>
+</body>
+</html>
